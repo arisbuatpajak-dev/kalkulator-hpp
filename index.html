@@ -3,440 +3,758 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalkulator HPP & Simulator Harga Jual Marketplace</title>
+  <title>Marketplace Price & HPP Studio</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --card-inner: #0f172a;
-      --border: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
+      --bg: #e5e7eb;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --brand-teal: #0d9488;
+      --brand-teal-dark: #0f766e;
+      --brand-dark: #0b1329;
       --emerald: #10b981;
       --amber: #f59e0b;
+      --rose: #ef4444;
+      --blue: #2563eb;
     }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+
     body {
       background-color: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
+      color: var(--text-dark);
       padding: 24px 16px;
+      min-height: 100vh;
     }
+
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
     }
+
+    /* TOP NAVBAR */
     header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background-color: #0d9488;
+      color: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.3px;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-top {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-top:hover {
+      background: #e2e8f0;
+    }
+
+    /* BANNER TEAL PRESET */
+    .preset-banner {
+      background-color: var(--brand-teal);
+      border-radius: 16px;
+      padding: 24px 28px;
+      color: #ffffff;
       margin-bottom: 24px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 16px;
+      gap: 20px;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
     }
-    .brand h1 {
+
+    .preset-info {
+      max-width: 520px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .preset-info h2 {
       font-size: 22px;
-      color: #fff;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
-    .brand p {
+
+    .preset-info p {
       font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 4px;
+      opacity: 0.9;
     }
-    .actions {
+
+    .preset-buttons {
       display: flex;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 520px;
+      justify-content: flex-end;
     }
-    .btn {
-      padding: 8px 16px;
-      border-radius: 8px;
+
+    .btn-channel {
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 9px 16px;
+      border-radius: 10px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      border: 1px solid transparent;
+      transition: all 0.2s ease;
     }
-    .btn-outline {
-      background: transparent;
-      border-color: var(--border);
-      color: var(--text-main);
+
+    .btn-channel:hover {
+      background: rgba(0, 0, 0, 0.35);
     }
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
+
+    .btn-channel.active {
+      background: #ffffff;
+      color: #0f766e;
+      font-weight: 700;
+      border-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
-    .main-grid {
+
+    /* MAIN LAYOUT 2 COLUMNS */
+    .layout-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 22px;
     }
-    @media (min-width: 900px) {
-      .main-grid {
+
+    @media (min-width: 960px) {
+      .layout-grid {
         grid-template-columns: 7fr 5fr;
       }
     }
+
+    /* CARD COMPONENTS */
     .card {
       background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 16px;
     }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-number {
+      width: 24px;
+      height: 24px;
+      background: #e0f2fe;
+      color: #0284c7;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .step-number.orange {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .step-number.purple {
+      background: #f3e8ff;
+      color: #9333ea;
+    }
+
     .card-title {
       font-size: 15px;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: #fff;
+      color: var(--text-dark);
     }
+
+    .card-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+    }
+
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
+
     .form-label {
       display: block;
       font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
     }
-    .input-wrapper {
+
+    .input-box {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border 0.15s ease;
+    }
+
+    .input-box:focus {
+      border-color: var(--brand-teal);
+    }
+
+    .input-wrap {
       position: relative;
       display: flex;
       align-items: center;
     }
-    .input-prefix, .input-suffix {
+
+    .input-wrap span.prefix, .input-wrap span.suffix {
       position: absolute;
       font-size: 13px;
       color: var(--text-muted);
+      pointer-events: none;
     }
-    .input-prefix { left: 10px; }
-    .input-suffix { right: 10px; }
-    input[type="text"], input[type="number"] {
-      width: 100%;
-      background: var(--card-inner);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 9px 10px;
-      font-size: 14px;
-      color: #fff;
-      outline: none;
+
+    .input-wrap span.prefix { left: 12px; }
+    .input-wrap span.suffix { right: 12px; }
+
+    .input-wrap input.has-prefix { padding-left: 36px; }
+    .input-wrap input.has-suffix { padding-right: 30px; }
+
+    .help-hint {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 4px;
     }
-    input.has-prefix { padding-left: 34px; }
-    input.has-suffix { padding-right: 30px; }
-    input:focus { border-color: var(--primary); }
+
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 14px;
     }
-    .badge-bar {
+
+    /* RIGHT COLUMN: HERO RESULT CARD */
+    .hero-result-card {
+      background: var(--brand-dark);
+      border-radius: 16px;
+      padding: 24px;
+      color: #ffffff;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(11, 19, 41, 0.25);
+    }
+
+    .hero-top {
       display: flex;
       justify-content: space-between;
-      background: #0f172a;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-bottom: 14px;
-      font-size: 13px;
-      border: 1px solid var(--border);
+      align-items: flex-start;
+      margin-bottom: 12px;
     }
-    .badge-bar span:last-child {
+
+    .hero-title-text h3 {
+      font-size: 11px;
       font-weight: 700;
-      color: var(--amber);
-    }
-    .hero-stat {
-      background: linear-gradient(135deg, #1e3a8a, #1e293b);
-      border: 1px solid #3b82f6;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .hero-label {
-      font-size: 12px;
-      text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #93c5fd;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+
+    .hero-title-text p {
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    .tag-safe {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .hero-price {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      margin: 10px 0;
+    }
+
+    .hero-payout {
+      font-size: 13px;
+      color: #34d399;
+      margin-bottom: 20px;
       font-weight: 600;
     }
-    .hero-value {
-      font-size: 32px;
-      font-weight: 800;
-      color: #fff;
-      margin: 6px 0;
+
+    .hero-substats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      border-top: 1px solid #1e293b;
+      padding-top: 16px;
     }
-    .hero-sub {
-      font-size: 13px;
-      color: #cbd5e1;
+
+    .substat-box {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #1e293b;
     }
-    .stat-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+
+    .substat-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 4px;
     }
-    .stat-item {
+
+    .substat-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .substat-note {
+      font-size: 10px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* RIGHT COLUMN: HARGA CORET CARD */
+    .card-coret {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .coret-result-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 12px;
-      background: var(--card-inner);
-      border: 1px solid var(--border);
-      border-radius: 6px;
+    }
+
+    .coret-strike {
+      text-decoration: line-through;
+      color: #94a3b8;
       font-size: 13px;
     }
-    .stat-item.highlight {
-      border-color: var(--emerald);
-      background: rgba(16, 185, 129, 0.1);
+
+    .coret-final {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
     }
-    .stat-item .val {
-      font-weight: 700;
-      color: #fff;
-    }
-    .stat-item.highlight .val {
-      color: var(--emerald);
-      font-size: 14px;
-    }
-    .breakdown-box {
-      background: var(--card-inner);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      margin-top: 14px;
+
+    /* RIGHT COLUMN: DETAIL BREAKDOWN */
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
       font-size: 12px;
-      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    .breakdown-table tr {
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .breakdown-table td {
+      padding: 7px 0;
       color: var(--text-muted);
     }
-    .breakdown-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
-      border-bottom: 1px dashed #334155;
+
+    .breakdown-table td.val {
+      text-align: right;
+      font-weight: 600;
+      color: var(--text-dark);
     }
-    .breakdown-row:last-child {
-      border-bottom: none;
-    }
+
+    /* TOAST */
     .toast {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--emerald);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 6px;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
       font-size: 13px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
       display: none;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
+  <!-- TOP NAV -->
   <header>
-    <div class="brand">
-      <h1>📊 Marketplace Pricing & HPP Calculator</h1>
-      <p>Hitung harga jual listing anti-boncos dengan rincian biaya admin manual.</p>
+    <div class="brand-group">
+      <div class="brand-icon">🛒</div>
+      <div class="brand-text">
+        <h1>Marketplace Price & HPP Studio</h1>
+        <p>Kalkulator Akurat Anti Boncos untuk Penjual Online</p>
+      </div>
     </div>
-    <div class="actions">
-      <button class="btn btn-outline" onclick="resetForm()">Reset Default</button>
-      <button class="btn btn-primary" onclick="copySummary()">Salin Ringkasan</button>
+    <div class="nav-actions">
+      <button class="btn-top" onclick="copySummary()">📋 Salin Ringkasan</button>
+      <button class="btn-top" onclick="resetDefaults()">🔄 Reset</button>
     </div>
   </header>
 
-  <div class="main-grid">
+  <!-- TEAL PRESET BANNER -->
+  <div class="preset-banner">
+    <div class="preset-info">
+      <div class="badge-pill">Preset Channel Otomatis</div>
+      <h2>Pilih Platform Penjualan Anda</h2>
+      <p>Estimasi tarif admin dan biaya layanan akan otomatis disesuaikan secara instan.</p>
+    </div>
+    <div class="preset-buttons">
+      <button class="btn-channel active" id="btn-shopee-star" onclick="applyPreset('shopee-star')">Shopee (Star / Star+)</button>
+      <button class="btn-channel" id="btn-shopee-non" onclick="applyPreset('shopee-non')">Shopee Non-Star</button>
+      <button class="btn-channel" id="btn-tiktok" onclick="applyPreset('tiktok')">TikTok Shop / Tokopedia</button>
+      <button class="btn-channel" id="btn-lazada" onclick="applyPreset('lazada')">Lazada</button>
+    </div>
+  </div>
+
+  <!-- MAIN 2 COLUMNS -->
+  <div class="layout-grid">
+    <!-- LEFT: FORM INPUTS -->
     <div>
+      <!-- CARD 1 -->
       <div class="card">
-        <div class="card-title">📦 1. Modal Pokok & Kemasan</div>
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="step-number">1</span>
+            <span class="card-title">Modal Pokok Produk & Kemasan</span>
+          </div>
+          <span class="card-badge">Biaya Langsung</span>
+        </div>
+
         <div class="form-group">
           <label class="form-label">Nama Produk / SKU</label>
-          <input type="text" id="productName" value="Kemeja Kasual Pria - Navy">
+          <input type="text" id="skuName" class="input-box" value="Kemeja Kasual Pria - Navy L">
         </div>
+
         <div class="grid-2">
           <div class="form-group">
-            <label class="form-label">Harga Beli / Produksi</label>
-            <div class="input-wrapper">
-              <span class="input-prefix">Rp</span>
-              <input type="number" id="hppBeli" class="has-prefix" value="45000" oninput="calculate()">
+            <label class="form-label">Harga Beli / Produksi (Rp)</label>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input type="number" id="hppBeli" class="input-box has-prefix" value="45000" oninput="calculate()">
+            </div>
+            <div class="help-hint">HPP beli dari supplier / biaya bahan.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Biaya Kemasan/Packing (Rp)</label>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input type="number" id="biayaPacking" class="input-box has-prefix" value="2500" oninput="calculate()">
+            </div>
+            <div class="help-hint">Kardus, bubble wrap, polymailer, thermal.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="step-number orange">2</span>
+            <span class="card-title">Alokasi Risiko & Pemasaran</span>
+          </div>
+          <span class="card-badge">Safety Buffer</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Alokasi Cadangan Retur COD / Rusak (%)</label>
+            <div class="input-wrap">
+              <input type="number" id="bufferCodPct" class="input-box has-suffix" value="3.0" step="0.1" oninput="calculate()">
+              <span class="suffix">%</span>
+            </div>
+            <div class="help-hint">Dicadangkan dari modal barang untuk mengantisipasi paket hilang/penyok.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Budget Iklan per 1 Pesanan (Rp)</label>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input type="number" id="budgetAds" class="input-box has-prefix" value="4000" oninput="calculate()">
+            </div>
+            <div class="help-hint">Estimasi biaya iklan Shopee Ads / TikTok GMV Max per transaksi.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="step-number purple">3</span>
+            <span class="card-title">Rincian Potongan Platform & Pajak</span>
+          </div>
+          <span class="card-badge" id="badgeTotalPercent" style="background:#e0f2fe; color:#0369a1;">Total: 17.0%</span>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">Semua persentase & biaya dapat Anda sesuaikan manual:</p>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">● Biaya Admin Platform (%)</label>
+            <div class="input-wrap">
+              <input type="number" id="feeAdmin" class="input-box has-suffix" value="6.5" step="0.1" oninput="calculate()">
+              <span class="suffix">%</span>
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Total Biaya Kemasan/Packing</label>
-            <div class="input-wrapper">
-              <span class="input-prefix">Rp</span>
-              <input type="number" id="biayaPacking" class="has-prefix" value="2500" oninput="calculate()">
+            <label class="form-label">● Biaya Gratis Ongkir (%)</label>
+            <div class="input-wrap">
+              <input type="number" id="feeOngkir" class="input-box has-suffix" value="4.0" step="0.1" oninput="calculate()">
+              <span class="suffix">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">● Promo Xtra / Cashback (%)</label>
+            <div class="input-wrap">
+              <input type="number" id="feeXtra" class="input-box has-suffix" value="3.0" step="0.1" oninput="calculate()">
+              <span class="suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">● Komisi Affiliate AMS (%)</label>
+            <div class="input-wrap">
+              <input type="number" id="feeAms" class="input-box has-suffix" value="2.5" step="0.1" oninput="calculate()">
+              <span class="suffix">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">● PPh 22 / UMKM 0.5% (%)</label>
+            <div class="input-wrap">
+              <input type="number" id="feePph" class="input-box has-suffix" value="0.5" step="0.1" oninput="calculate()">
+              <span class="suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">● Premi Asuransi Pengiriman (%)</label>
+            <div class="input-wrap">
+              <input type="number" id="feeAsuransi" class="input-box has-suffix" value="0.5" step="0.1" oninput="calculate()">
+              <span class="suffix">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">● Voucher Toko Diskon (Rp)</label>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input type="number" id="voucherToko" class="input-box has-prefix" value="1000" oninput="calculate()">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">● Biaya Layanan Tetap Flat (Rp)</label>
+            <div class="input-wrap">
+              <span class="prefix">Rp</span>
+              <input type="number" id="biayaFlat" class="input-box has-prefix" value="1000" oninput="calculate()">
             </div>
           </div>
         </div>
       </div>
 
+      <!-- CARD 4 -->
       <div class="card">
-        <div class="card-title">🛡️ 2. Buffer Risiko & Marketing Ads</div>
-        <div class="grid-2">
-          <div class="form-group">
-            <label class="form-label">Cadangan Retur COD (%)</label>
-            <div class="input-wrapper">
-              <input type="number" id="bufferCod" class="has-suffix" value="2.5" step="0.1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="step-number">4</span>
+            <span class="card-title">Target Keuntungan Bersih (Net Profit)</span>
           </div>
-          <div class="form-group">
-            <label class="form-label">Budget Iklan per Pesanan</label>
-            <div class="input-wrapper">
-              <span class="input-prefix">Rp</span>
-              <input type="number" id="budgetIklan" class="has-prefix" value="4000" oninput="calculate()">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">⚙️ 3. Rincian Potongan Platform & Pajak (Input Manual)</div>
-        <div class="badge-bar">
-          <span>Total Potongan Persentase:</span>
-          <span id="totalPercentBadge">0%</span>
+          <span class="card-badge">Target Toko</span>
         </div>
 
-        <div class="grid-2">
-          <div class="form-group">
-            <label class="form-label">Biaya Admin Platform</label>
-            <div class="input-wrapper">
-              <input type="number" id="feeAdmin" class="has-suffix" value="6.5" step="0.1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
+        <div class="form-group">
+          <label class="form-label">Target Margin Bersih dari Omset (%)</label>
+          <div class="input-wrap">
+            <input type="number" id="targetMargin" class="input-box has-suffix" value="20.9" step="0.1" oninput="calculate()">
+            <span class="suffix">%</span>
           </div>
-          <div class="form-group">
-            <label class="form-label">Biaya Gratis Ongkir</label>
-            <div class="input-wrapper">
-              <input type="number" id="feeGratisOngkir" class="has-suffix" value="4.0" step="0.1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="form-group">
-            <label class="form-label">Promo Xtra / Cashback</label>
-            <div class="input-wrapper">
-              <input type="number" id="feePromoXtra" class="has-suffix" value="3.0" step="0.1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Komisi Affiliate AMS</label>
-            <div class="input-wrapper">
-              <input type="number" id="feeAffiliate" class="has-suffix" value="4.0" step="0.1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="form-group">
-            <label class="form-label">PPh 22 / UMKM (0.5%)</label>
-            <div class="input-wrapper">
-              <input type="number" id="taxPph" class="has-suffix" value="0.5" step="0.1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Premi Asuransi Pengiriman</label>
-            <div class="input-wrapper">
-              <input type="number" id="feeAsuransi" class="has-suffix" value="0.5" step="0.1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="form-group">
-            <label class="form-label">Voucher Toko (Nominal)</label>
-            <div class="input-wrapper">
-              <span class="input-prefix">Rp</span>
-              <input type="number" id="voucherToko" class="has-prefix" value="1000" oninput="calculate()">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Biaya Layanan Tetap Flat</label>
-            <div class="input-wrapper">
-              <span class="input-prefix">Rp</span>
-              <input type="number" id="biayaFlat" class="has-prefix" value="1000" oninput="calculate()">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">🎯 4. Target Keuntungan Bersih (Net Margin)</div>
-        <div class="grid-2">
-          <div class="form-group">
-            <label class="form-label">Target Margin Bersih (%)</label>
-            <div class="input-wrapper">
-              <input type="number" id="targetMargin" class="has-suffix" value="25" step="0.5" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Diskon Harga Coret Toko (%)</label>
-            <div class="input-wrapper">
-              <input type="number" id="diskonCoret" class="has-suffix" value="20" step="1" oninput="calculate()">
-              <span class="input-suffix">%</span>
-            </div>
-          </div>
+          <div class="help-hint">Persentase keuntungan bersih mutlak setelah semua modal & biaya marketplace terbayar.</div>
         </div>
       </div>
     </div>
 
+    <!-- RIGHT: HERO STATS & SIMULASI -->
     <div>
-      <div class="hero-stat">
-        <div class="hero-label">Rekomendasi Harga Jual Listing</div>
-        <div class="hero-value" id="resSellingPrice">Rp 0</div>
-        <div class="hero-sub" id="resCoretPrice">Harga Coret: Rp 0</div>
+      <!-- HERO CARD -->
+      <div class="hero-result-card">
+        <div class="hero-top">
+          <div class="hero-title-text">
+            <h3>Rekomendasi Harga Jual</h3>
+            <p>Harga yang harus dipasang di etalase</p>
+          </div>
+          <span class="tag-safe">Target Aman</span>
+        </div>
+
+        <div class="hero-price" id="resSellingPrice">Rp 87.500</div>
+        <div class="hero-payout" id="resDanaCair">Estimasi Pencairan Saldo: Rp 71.563</div>
+
+        <div class="hero-substats">
+          <div class="substat-box">
+            <div class="substat-label">Laba Bersih Riil:</div>
+            <div class="substat-val" id="resNetProfit">Rp 18.275</div>
+            <div class="substat-note" id="resNetMarginNote">(20.9% Margin)</div>
+          </div>
+          <div class="substat-box">
+            <div class="substat-label">Batas Impas (BEP):</div>
+            <div class="substat-val" id="resBepPrice">Rp 65.500</div>
+            <div class="substat-note">Titik profit 0 rupiah</div>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <div class="card-title">📈 Ringkasan Performa per Transaksi</div>
-        <div class="stat-list">
-          <div class="stat-item highlight">
-            <span>Estimasi Laba Bersih</span>
-            <span class="val" id="resNetProfit">Rp 0</span>
-          </div>
-          <div class="stat-item">
-            <span>Total Potongan Platform & Pajak</span>
-            <span class="val" id="resTotalFee">Rp 0</span>
-          </div>
-          <div class="stat-item">
-            <span>Dana Bersih Masuk Rekening</span>
-            <span class="val" id="resDanaCair">Rp 0</span>
-          </div>
-          <div class="stat-item">
-            <span>Titik Impas (BEP) Minimum</span>
-            <span class="val" id="resBepPrice">Rp 0</span>
+      <!-- SIMULASI HARGA CORET -->
+      <div class="card-coret">
+        <div class="card-header" style="margin-bottom: 12px;">
+          <span class="card-title" style="font-size: 14px;">Simulasi Harga Coret & Diskon</span>
+          <span class="card-badge" style="background: #dcfce7; color: #15803d;">Campaign Ready</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+          Buat diskon promosi atau voucher toko tanpa mengurangi target laba Anda.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Diskon Toko yang Diinginkan:</label>
+          <div class="input-wrap">
+            <input type="number" id="diskonToko" class="input-box has-suffix" value="15" step="1" oninput="calculate()">
+            <span class="suffix">%</span>
           </div>
         </div>
 
-        <div class="breakdown-box">
-          <div style="font-weight: 700; color: #fff; margin-bottom: 8px;">Rincian Transaksi per Unit:</div>
-          <div class="breakdown-row"><span>HPP Produk Pokok:</span><span id="dtlHpp">Rp 0</span></div>
-          <div class="breakdown-row"><span>Biaya Kemasan & Bubble:</span><span id="dtlPacking">Rp 0</span></div>
-          <div class="breakdown-row"><span>Budget Iklan / Ads:</span><span id="dtlAds">Rp 0</span></div>
-          <div class="breakdown-row"><span>Buffer Risiko Retur COD:</span><span id="dtlBuffer">Rp 0</span></div>
-          <div class="breakdown-row"><span>Admin Platform:</span><span id="dtlAdmin">Rp 0</span></div>
-          <div class="breakdown-row"><span>Gratis Ongkir:</span><span id="dtlOngkir">Rp 0</span></div>
-          <div class="breakdown-row"><span>Promo Xtra:</span><span id="dtlXtra">Rp 0</span></div>
-          <div class="breakdown-row"><span>Affiliate AMS:</span><span id="dtlAms">Rp 0</span></div>
-          <div class="breakdown-row"><span>PPh 22 / UMKM (0.5%):</span><span id="dtlPph">Rp 0</span></div>
-          <div class="breakdown-row"><span>Asuransi + Voucher + Flat:</span><span id="dtlOther">Rp 0</span></div>
+        <div class="coret-result-box">
+          <div>
+            <div style="font-size: 12px; color: var(--text-muted);">Pasang Harga Coret / Normal:</div>
+            <div class="coret-strike" id="resCoretStrike">Rp 103.000</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="coret-final" id="resCoretFinal">Rp 103.000</div>
+            <div style="font-size: 10px; color: var(--text-muted);">Setelah diskon kembali ke target</div>
+          </div>
         </div>
+      </div>
+
+      <!-- DETAIL BREAKDOWN -->
+      <div class="card">
+        <div class="card-header" style="margin-bottom: 10px;">
+          <span class="card-title" style="font-size: 14px;">Rincian Pembagian Omset per Unit</span>
+          <span class="card-badge">Alokasi Rinci</span>
+        </div>
+
+        <table class="breakdown-table">
+          <tr><td>Modal Beli Produk (HPP)</td><td class="val" id="tblHpp">Rp 45.000</td></tr>
+          <tr><td>Biaya Packing & Kemasan</td><td class="val" id="tblPacking">Rp 2.500</td></tr>
+          <tr><td>Budget Iklan per Transaksi</td><td class="val" id="tblAds">Rp 4.000</td></tr>
+          <tr><td>Cadangan Retur COD / Rusak</td><td class="val" id="tblBuffer">Rp 1.350</td></tr>
+          <tr><td>Total Potongan Admin & Fee Platform</td><td class="val" id="tblPlatformFee" style="color:#ef4444;">Rp 14.875</td></tr>
+          <tr><td>Pajak PPh Final 22 / UMKM (0.5%)</td><td class="val" id="tblPph">Rp 438</td></tr>
+          <tr><td>Biaya Flat & Voucher Toko</td><td class="val" id="tblFlat">Rp 2.000</td></tr>
+          <tr style="border-top: 1px solid #cbd5e1; font-weight:700;"><td style="color:var(--emerald); font-weight:700;">Sisa Bersih Masuk Kantong (Laba)</td><td class="val" id="tblNetLaba" style="color:var(--emerald); font-size:13px;">Rp 18.275</td></tr>
+        </table>
       </div>
     </div>
   </div>
 </div>
 
-<div id="toast" class="toast">Ringkasan berhasil disalin!</div>
+<div id="toast" class="toast">Ringkasan harga berhasil disalin ke clipboard!</div>
 
 <script>
   function formatRp(val) {
@@ -444,107 +762,153 @@
   }
 
   function getNum(id) {
-    const v = parseFloat(document.getElementById(id).value);
-    return isNaN(v) ? 0 : v;
+    const el = document.getElementById(id);
+    if (!el) return 0;
+    const val = parseFloat(el.value);
+    return isNaN(val) ? 0 : val;
+  }
+
+  function applyPreset(type) {
+    document.querySelectorAll('.btn-channel').forEach(b => b.classList.remove('active'));
+
+    if (type === 'shopee-star') {
+      document.getElementById('btn-shopee-star').classList.add('active');
+      document.getElementById('feeAdmin').value = 6.5;
+      document.getElementById('feeOngkir').value = 4.0;
+      document.getElementById('feeXtra').value = 3.0;
+      document.getElementById('feeAms').value = 2.5;
+      document.getElementById('biayaFlat').value = 1000;
+    } else if (type === 'shopee-non') {
+      document.getElementById('btn-shopee-non').classList.add('active');
+      document.getElementById('feeAdmin').value = 5.0;
+      document.getElementById('feeOngkir').value = 4.0;
+      document.getElementById('feeXtra').value = 0.0;
+      document.getElementById('feeAms').value = 2.0;
+      document.getElementById('biayaFlat').value = 1000;
+    } else if (type === 'tiktok') {
+      document.getElementById('btn-tiktok').classList.add('active');
+      document.getElementById('feeAdmin').value = 6.0;
+      document.getElementById('feeOngkir').value = 4.0;
+      document.getElementById('feeXtra').value = 2.5;
+      document.getElementById('feeAms').value = 3.0;
+      document.getElementById('biayaFlat').value = 1200;
+    } else if (type === 'lazada') {
+      document.getElementById('btn-lazada').classList.add('active');
+      document.getElementById('feeAdmin').value = 5.5;
+      document.getElementById('feeOngkir').value = 3.5;
+      document.getElementById('feeXtra').value = 2.0;
+      document.getElementById('feeAms').value = 2.0;
+      document.getElementById('biayaFlat').value = 1000;
+    }
+    calculate();
   }
 
   function calculate() {
     const hppBeli = getNum('hppBeli');
     const biayaPacking = getNum('biayaPacking');
-    const bufferCodPct = getNum('bufferCod');
-    const budgetIklan = getNum('budgetIklan');
+    const bufferCodPct = getNum('bufferCodPct');
+    const budgetAds = getNum('budgetAds');
 
     const feeAdmin = getNum('feeAdmin');
-    const feeGratisOngkir = getNum('feeGratisOngkir');
-    const feePromoXtra = getNum('feePromoXtra');
-    const feeAffiliate = getNum('feeAffiliate');
-    const taxPph = getNum('taxPph');
+    const feeOngkir = getNum('feeOngkir');
+    const feeXtra = getNum('feeXtra');
+    const feeAms = getNum('feeAms');
+    const feePph = getNum('feePph');
     const feeAsuransi = getNum('feeAsuransi');
 
     const voucherToko = getNum('voucherToko');
     const biayaFlat = getNum('biayaFlat');
+
     const targetMargin = getNum('targetMargin');
-    const diskonCoret = getNum('diskonCoret');
+    const diskonToko = getNum('diskonToko');
 
-    const totalPercentFees = feeAdmin + feeGratisOngkir + feePromoXtra + feeAffiliate + taxPph + feeAsuransi;
-    document.getElementById('totalPercentBadge').textContent = totalPercentFees.toFixed(1) + '%';
+    // Total % potongan platform & pajak
+    const totalPercentFees = feeAdmin + feeOngkir + feeXtra + feeAms + feePph + feeAsuransi;
+    document.getElementById('badgeTotalPercent').textContent = 'Total: ' + totalPercentFees.toFixed(1) + '%';
 
+    // Nominal dasar biaya tetap
     const bufferNominal = hppBeli * (bufferCodPct / 100);
-    const totalModalFix = hppBeli + biayaPacking + bufferNominal + budgetIklan + voucherToko + biayaFlat;
+    const totalFixCosts = hppBeli + biayaPacking + bufferNominal + budgetAds + voucherToko + biayaFlat;
 
-    const rateDivider = 1 - ((totalPercentFees + targetMargin) / 100);
-    let sellingPrice = rateDivider > 0 ? (totalModalFix / rateDivider) : totalModalFix * 2;
+    // Formula Anti-Boncos
+    const divider = 1 - ((totalPercentFees + targetMargin) / 100);
+    let sellingPrice = divider > 0 ? (totalFixCosts / divider) : (totalFixCosts * 2);
 
+    // Pembulatan ke kelipatan 500 terdekat agar harga rapi
+    sellingPrice = Math.round(sellingPrice / 500) * 500;
+
+    // BEP (Margin 0%)
     const bepDivider = 1 - (totalPercentFees / 100);
-    const bepPrice = bepDivider > 0 ? (totalModalFix / bepDivider) : totalModalFix;
+    let bepPrice = bepDivider > 0 ? (totalFixCosts / bepDivider) : totalFixCosts;
+    bepPrice = Math.round(bepPrice / 500) * 500;
 
-    const coretPrice = diskonCoret > 0 && diskonCoret < 100 
-      ? sellingPrice / (1 - (diskonCoret / 100)) 
-      : sellingPrice;
+    // Harga Coret
+    const coretDivider = 1 - (diskonToko / 100);
+    let coretPrice = coretDivider > 0 ? (sellingPrice / coretDivider) : sellingPrice;
+    coretPrice = Math.round(coretPrice / 500) * 500;
 
-    const nomAdmin = sellingPrice * (feeAdmin / 100);
-    const nomOngkir = sellingPrice * (feeGratisOngkir / 100);
-    const nomXtra = sellingPrice * (feePromoXtra / 100);
-    const nomAms = sellingPrice * (feeAffiliate / 100);
-    const nomPph = sellingPrice * (taxPph / 100);
-    const nomAsuransi = sellingPrice * (feeAsuransi / 100);
-    const totalPotongan = (sellingPrice * (totalPercentFees / 100)) + voucherToko + biayaFlat;
+    // Rincian Arus Kas
+    const potPlatformPercent = sellingPrice * ((feeAdmin + feeOngkir + feeXtra + feeAms + feeAsuransi) / 100);
+    const potPphNominal = sellingPrice * (feePph / 100);
+    const totalPotonganKotor = potPlatformPercent + potPphNominal + voucherToko + biayaFlat;
 
-    const danaCair = sellingPrice - totalPotongan;
-    const netProfit = danaCair - (hppBeli + biayaPacking + bufferNominal + budgetIklan);
+    const danaCair = sellingPrice - totalPotonganKotor;
+    const netProfit = danaCair - (hppBeli + biayaPacking + bufferNominal + budgetAds);
+    const realMarginPct = sellingPrice > 0 ? ((netProfit / sellingPrice) * 100).toFixed(1) : '0';
 
+    // Update Output Utama
     document.getElementById('resSellingPrice').textContent = formatRp(sellingPrice);
-    document.getElementById('resCoretPrice').textContent = 'Harga Coret (' + diskonCoret + '%): ' + formatRp(coretPrice);
-    document.getElementById('resNetProfit').textContent = formatRp(netProfit) + ' (' + ((netProfit / sellingPrice) * 100).toFixed(1) + '%)';
-    document.getElementById('resTotalFee').textContent = formatRp(totalPotongan);
-    document.getElementById('resDanaCair').textContent = formatRp(danaCair);
+    document.getElementById('resDanaCair').textContent = 'Estimasi Pencairan Saldo: ' + formatRp(danaCair);
+    document.getElementById('resNetProfit').textContent = formatRp(netProfit);
+    document.getElementById('resNetMarginNote').textContent = '(' + realMarginPct + '% Margin)';
     document.getElementById('resBepPrice').textContent = formatRp(bepPrice);
 
-    document.getElementById('dtlHpp').textContent = formatRp(hppBeli);
-    document.getElementById('dtlPacking').textContent = formatRp(biayaPacking);
-    document.getElementById('dtlAds').textContent = formatRp(budgetIklan);
-    document.getElementById('dtlBuffer').textContent = formatRp(bufferNominal);
-    document.getElementById('dtlAdmin').textContent = formatRp(nomAdmin);
-    document.getElementById('dtlOngkir').textContent = formatRp(nomOngkir);
-    document.getElementById('dtlXtra').textContent = formatRp(nomXtra);
-    document.getElementById('dtlAms').textContent = formatRp(nomAms);
-    document.getElementById('dtlPph').textContent = formatRp(nomPph);
-    document.getElementById('dtlOther').textContent = formatRp(nomAsuransi + voucherToko + biayaFlat);
+    // Update Simulasi Coret
+    document.getElementById('resCoretStrike').textContent = formatRp(coretPrice);
+    document.getElementById('resCoretFinal').textContent = formatRp(coretPrice);
+
+    // Update Tabel Pembagian
+    document.getElementById('tblHpp').textContent = formatRp(hppBeli);
+    document.getElementById('tblPacking').textContent = formatRp(biayaPacking);
+    document.getElementById('tblAds').textContent = formatRp(budgetAds);
+    document.getElementById('tblBuffer').textContent = formatRp(bufferNominal);
+    document.getElementById('tblPlatformFee').textContent = formatRp(potPlatformPercent);
+    document.getElementById('tblPph').textContent = formatRp(potPphNominal);
+    document.getElementById('tblFlat').textContent = formatRp(voucherToko + biayaFlat);
+    document.getElementById('tblNetLaba').textContent = formatRp(netProfit);
   }
 
-  function resetForm() {
+  function resetDefaults() {
+    document.getElementById('skuName').value = 'Kemeja Kasual Pria - Navy L';
     document.getElementById('hppBeli').value = 45000;
     document.getElementById('biayaPacking').value = 2500;
-    document.getElementById('bufferCod').value = 2.5;
-    document.getElementById('budgetIklan').value = 4000;
-    document.getElementById('feeAdmin').value = 6.5;
-    document.getElementById('feeGratisOngkir').value = 4.0;
-    document.getElementById('feePromoXtra').value = 3.0;
-    document.getElementById('feeAffiliate').value = 4.0;
-    document.getElementById('taxPph').value = 0.5;
+    document.getElementById('bufferCodPct').value = 3.0;
+    document.getElementById('budgetAds').value = 4000;
+    document.getElementById('targetMargin').value = 20.9;
+    document.getElementById('diskonToko').value = 15;
+    document.getElementById('feePph').value = 0.5;
     document.getElementById('feeAsuransi').value = 0.5;
     document.getElementById('voucherToko').value = 1000;
-    document.getElementById('biayaFlat').value = 1000;
-    document.getElementById('targetMargin').value = 25;
-    document.getElementById('diskonCoret').value = 20;
-    calculate();
+    applyPreset('shopee-star');
   }
 
   function copySummary() {
-    const name = document.getElementById('productName').value;
+    const sku = document.getElementById('skuName').value;
     const sell = document.getElementById('resSellingPrice').textContent;
-    const coret = document.getElementById('resCoretPrice').textContent;
-    const net = document.getElementById('resNetProfit').textContent;
+    const coret = document.getElementById('resCoretFinal').textContent;
     const bep = document.getElementById('resBepPrice').textContent;
-    const fee = document.getElementById('resTotalFee').textContent;
+    const cair = document.getElementById('resDanaCair').textContent;
+    const laba = document.getElementById('resNetProfit').textContent;
+    const note = document.getElementById('resNetMarginNote').textContent;
 
-    const text = `📋 RINGKASAN HARGA PRODUK\n` +
-      `Produk: ${name}\n` +
-      `Rekomendasi Harga Jual: ${sell}\n` +
-      `${coret}\n` +
-      `Titik Impas (BEP): ${bep}\n` +
-      `Total Fee & Pajak: ${fee}\n` +
-      `Estimasi Laba Bersih: ${net}`;
+    const text = `🛒 RINGKASAN HARGA PRODUK\n` +
+      `Produk / SKU: ${sku}\n` +
+      `Harga Jual Etalase: ${sell}\n` +
+      `Harga Coret Normal: ${coret}\n` +
+      `Batas Impas (BEP): ${bep}\n` +
+      `${cair}\n` +
+      `Estimasi Laba Bersih: ${laba} ${note}\n` +
+      `--- Dihitung via Marketplace Price & HPP Studio ---`;
 
     navigator.clipboard.writeText(text).then(() => {
       const toast = document.getElementById('toast');
@@ -555,5 +919,6 @@
 
   calculate();
 </script>
+
 </body>
 </html>
