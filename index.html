@@ -16,60 +16,46 @@
       --primary-hover: #2563eb;
       --emerald: #10b981;
       --amber: #f59e0b;
-      --rose: #f43f5e;
-      --cyan: #06b6d4;
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-
     body {
       background-color: var(--bg);
       color: var(--text-main);
       min-height: 100vh;
       padding: 24px 16px;
     }
-
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
     }
-
     header {
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
+      padding-bottom: 16px;
     }
-
     .brand h1 {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 22px;
       color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
-
     .brand p {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-top: 4px;
     }
-
     .actions {
       display: flex;
       gap: 10px;
     }
-
     .btn {
       padding: 8px 16px;
       border-radius: 8px;
@@ -77,200 +63,154 @@
       font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
-      transition: all 0.2s;
     }
-
     .btn-outline {
       background: transparent;
       border-color: var(--border);
       color: var(--text-main);
     }
-    .btn-outline:hover {
-      background: var(--card-bg);
-    }
-
     .btn-primary {
       background: var(--primary);
       color: #fff;
     }
-    .btn-primary:hover {
-      background: var(--primary-hover);
-    }
-
     .main-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 20px;
     }
-
-    @media (min-width: 992px) {
+    @media (min-width: 900px) {
       .main-grid {
         grid-template-columns: 7fr 5fr;
       }
     }
-
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 20px;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
     }
-
     .card-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      margin-bottom: 12px;
       color: #fff;
     }
-
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-
     .form-label {
       display: block;
       font-size: 12px;
-      font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 4px;
     }
-
     .input-wrapper {
       position: relative;
       display: flex;
       align-items: center;
     }
-
     .input-prefix, .input-suffix {
       position: absolute;
       font-size: 13px;
       color: var(--text-muted);
-      pointer-events: none;
     }
-
-    .input-prefix { left: 12px; }
-    .input-suffix { right: 12px; }
-
-    input[type="text"], input[type="number"], select {
+    .input-prefix { left: 10px; }
+    .input-suffix { right: 10px; }
+    input[type="text"], input[type="number"] {
       width: 100%;
       background: var(--card-inner);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
+      border-radius: 6px;
+      padding: 9px 10px;
       font-size: 14px;
       color: #fff;
       outline: none;
-      transition: border-color 0.2s;
     }
-
-    input.has-prefix { padding-left: 36px; }
-    input.has-suffix { padding-right: 32px; }
-
-    input:focus, select:focus {
-      border-color: var(--primary);
-    }
-
+    input.has-prefix { padding-left: 34px; }
+    input.has-suffix { padding-right: 30px; }
+    input:focus { border-color: var(--primary); }
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
-
     .badge-bar {
       display: flex;
       justify-content: space-between;
       background: #0f172a;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 14px;
       font-size: 13px;
       border: 1px solid var(--border);
     }
-
     .badge-bar span:last-child {
       font-weight: 700;
       color: var(--amber);
     }
-
-    /* Output Card */
     .hero-stat {
       background: linear-gradient(135deg, #1e3a8a, #1e293b);
       border: 1px solid #3b82f6;
-      border-radius: 14px;
-      padding: 24px;
+      border-radius: 12px;
+      padding: 20px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-
     .hero-label {
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       color: #93c5fd;
       font-weight: 600;
     }
-
     .hero-value {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 800;
       color: #fff;
-      margin: 8px 0;
+      margin: 6px 0;
     }
-
     .hero-sub {
       font-size: 13px;
       color: #cbd5e1;
     }
-
     .stat-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
-
     .stat-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 14px;
+      padding: 10px 12px;
       background: var(--card-inner);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 13px;
     }
-
     .stat-item.highlight {
       border-color: var(--emerald);
       background: rgba(16, 185, 129, 0.1);
     }
-
     .stat-item .val {
       font-weight: 700;
       color: #fff;
     }
-
     .stat-item.highlight .val {
       color: var(--emerald);
-      font-size: 15px;
+      font-size: 14px;
     }
-
     .breakdown-box {
       background: var(--card-inner);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      margin-top: 16px;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 14px;
       font-size: 12px;
       line-height: 1.6;
       color: var(--text-muted);
     }
-
     .breakdown-row {
       display: flex;
       justify-content: space-between;
@@ -280,19 +220,16 @@
     .breakdown-row:last-child {
       border-bottom: none;
     }
-
     .toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 20px;
+      right: 20px;
       background: var(--emerald);
       color: #fff;
-      padding: 12px 20px;
-      border-radius: 8px;
+      padding: 10px 18px;
+      border-radius: 6px;
       font-size: 13px;
-      font-weight: 600;
       display: none;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
     }
   </style>
 </head>
@@ -311,9 +248,7 @@
   </header>
 
   <div class="main-grid">
-    <!-- INPUT COLUMN -->
     <div>
-      <!-- 1. MODAL DASAR -->
       <div class="card">
         <div class="card-title">📦 1. Modal Pokok & Kemasan</div>
         <div class="form-group">
@@ -338,7 +273,6 @@
         </div>
       </div>
 
-      <!-- 2. RISIKO & PEMASARAN -->
       <div class="card">
         <div class="card-title">🛡️ 2. Buffer Risiko & Marketing Ads</div>
         <div class="grid-2">
@@ -359,11 +293,10 @@
         </div>
       </div>
 
-      <!-- 3. RINCIAN BIAYA MARKETPLACE (MANUAL) -->
       <div class="card">
         <div class="card-title">⚙️ 3. Rincian Potongan Platform & Pajak (Input Manual)</div>
         <div class="badge-bar">
-          <span>Akumulasi Potongan Persentase (%):</span>
+          <span>Total Potongan Persentase:</span>
           <span id="totalPercentBadge">0%</span>
         </div>
 
@@ -436,9 +369,8 @@
         </div>
       </div>
 
-      <!-- 4. TARGET PROFIT -->
       <div class="card">
-        <div class="card-title">🎯 4. Target Keuntungan Bersih (Net Profit)</div>
+        <div class="card-title">🎯 4. Target Keuntungan Bersih (Net Margin)</div>
         <div class="grid-2">
           <div class="form-group">
             <label class="form-label">Target Margin Bersih (%)</label>
@@ -458,7 +390,6 @@
       </div>
     </div>
 
-    <!-- RESULT COLUMN -->
     <div>
       <div class="hero-stat">
         <div class="hero-label">Rekomendasi Harga Jual Listing</div>
@@ -470,7 +401,7 @@
         <div class="card-title">📈 Ringkasan Performa per Transaksi</div>
         <div class="stat-list">
           <div class="stat-item highlight">
-            <span>Estimasi Laba Bersih Bersih</span>
+            <span>Estimasi Laba Bersih</span>
             <span class="val" id="resNetProfit">Rp 0</span>
           </div>
           <div class="stat-item">
@@ -478,11 +409,11 @@
             <span class="val" id="resTotalFee">Rp 0</span>
           </div>
           <div class="stat-item">
-            <span>Dana Bersih Masuk Rekening (Escrow)</span>
+            <span>Dana Bersih Masuk Rekening</span>
             <span class="val" id="resDanaCair">Rp 0</span>
           </div>
           <div class="stat-item">
-            <span>Titik Impas / BEP Minimum</span>
+            <span>Titik Impas (BEP) Minimum</span>
             <span class="val" id="resBepPrice">Rp 0</span>
           </div>
         </div>
@@ -535,34 +466,22 @@
     const targetMargin = getNum('targetMargin');
     const diskonCoret = getNum('diskonCoret');
 
-    // Total persentase potongan platform + pajak
     const totalPercentFees = feeAdmin + feeGratisOngkir + feePromoXtra + feeAffiliate + taxPph + feeAsuransi;
     document.getElementById('totalPercentBadge').textContent = totalPercentFees.toFixed(1) + '%';
 
-    // Biaya modal riil
     const bufferNominal = hppBeli * (bufferCodPct / 100);
     const totalModalFix = hppBeli + biayaPacking + bufferNominal + budgetIklan + voucherToko + biayaFlat;
 
-    // Formula Anti-Boncos
-    // Harga Jual = TotalModalFix / (1 - (TotalPercentFees + TargetMargin) / 100)
     const rateDivider = 1 - ((totalPercentFees + targetMargin) / 100);
-    let sellingPrice = 0;
-    if (rateDivider > 0) {
-      sellingPrice = totalModalFix / rateDivider;
-    } else {
-      sellingPrice = totalModalFix * 2;
-    }
+    let sellingPrice = rateDivider > 0 ? (totalModalFix / rateDivider) : totalModalFix * 2;
 
-    // BEP (Margin 0%)
     const bepDivider = 1 - (totalPercentFees / 100);
     const bepPrice = bepDivider > 0 ? (totalModalFix / bepDivider) : totalModalFix;
 
-    // Harga Coret
     const coretPrice = diskonCoret > 0 && diskonCoret < 100 
       ? sellingPrice / (1 - (diskonCoret / 100)) 
       : sellingPrice;
 
-    // Rincian Nilai
     const nomAdmin = sellingPrice * (feeAdmin / 100);
     const nomOngkir = sellingPrice * (feeGratisOngkir / 100);
     const nomXtra = sellingPrice * (feePromoXtra / 100);
@@ -574,7 +493,6 @@
     const danaCair = sellingPrice - totalPotongan;
     const netProfit = danaCair - (hppBeli + biayaPacking + bufferNominal + budgetIklan);
 
-    // Update Tampilan
     document.getElementById('resSellingPrice').textContent = formatRp(sellingPrice);
     document.getElementById('resCoretPrice').textContent = 'Harga Coret (' + diskonCoret + '%): ' + formatRp(coretPrice);
     document.getElementById('resNetProfit').textContent = formatRp(netProfit) + ' (' + ((netProfit / sellingPrice) * 100).toFixed(1) + '%)';
@@ -582,7 +500,6 @@
     document.getElementById('resDanaCair').textContent = formatRp(danaCair);
     document.getElementById('resBepPrice').textContent = formatRp(bepPrice);
 
-    // Update Breakdown
     document.getElementById('dtlHpp').textContent = formatRp(hppBeli);
     document.getElementById('dtlPacking').textContent = formatRp(biayaPacking);
     document.getElementById('dtlAds').textContent = formatRp(budgetIklan);
@@ -626,9 +543,8 @@
       `Rekomendasi Harga Jual: ${sell}\n` +
       `${coret}\n` +
       `Titik Impas (BEP): ${bep}\n` +
-      `Total Fee & Pajak Platform: ${fee}\n` +
-      `Estimasi Laba Bersih: ${net}\n` +
-      `-- Dihitung via Kalkulator HPP Marketplace --`;
+      `Total Fee & Pajak: ${fee}\n` +
+      `Estimasi Laba Bersih: ${net}`;
 
     navigator.clipboard.writeText(text).then(() => {
       const toast = document.getElementById('toast');
@@ -637,9 +553,7 @@
     });
   }
 
-  // Initial Calculation
   calculate();
 </script>
-
 </body>
 </html>
