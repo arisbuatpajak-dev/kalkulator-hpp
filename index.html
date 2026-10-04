@@ -1,463 +1,645 @@
-  <div class="flex items-center gap-2">
-    <button id="btn-export-text" class="px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition">
-      <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-      </svg>
-      Salin Ringkasan
-    </button>
-    <button id="btn-reset" class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition">
-      Reset
-    </button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator HPP & Simulator Harga Jual Marketplace</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-inner: #0f172a;
+      --border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --cyan: #06b6d4;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-  
-  <!-- LEFT COLUMN: INPUTS -->
-  <div class="lg:col-span-7 space-y-6">
-    
-    <!-- Card 1: Informasi Modal & Kemasan -->
-    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-        <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">1</span>
-          <h3 class="font-bold text-slate-800">Modal Pokok Produk & Kemasan</h3>
-        </div>
-        <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium">Biaya Langsung</span>
-      </div>
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="sm:col-span-2">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Produk / SKU</label>
-          <input type="text" id="prod-name" value="Kemeja Kasual Pria - Navy L" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
-        </div>
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Harga Beli / Produksi (Rp)</label>
-          <div class="relative">
-            <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-medium">Rp</span>
-            <input type="number" id="cogs-base" value="45000" min="0" step="500" class="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-          </div>
-          <p class="text-[11px] text-slate-400 mt-1">HPP beli dari supplier / biaya bahan.</p>
-        </div>
+    header {
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
 
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Total Biaya Kemasan/Packing (Rp)</label>
-          <div class="relative">
-            <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-medium">Rp</span>
-            <input type="number" id="cost-packaging" value="2500" min="0" step="100" class="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-          </div>
-          <p class="text-[11px] text-slate-400 mt-1">Kardus, bubble wrap, polymailer, thermal.</p>
-        </div>
-      </div>
+    .brand h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      background: var(--card-bg);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 992px) {
+      .main-grid {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-prefix, .input-suffix {
+      position: absolute;
+      font-size: 13px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .input-prefix { left: 12px; }
+    .input-suffix { right: 12px; }
+
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input.has-prefix { padding-left: 36px; }
+    input.has-suffix { padding-right: 32px; }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .badge-bar {
+      display: flex;
+      justify-content: space-between;
+      background: #0f172a;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      border: 1px solid var(--border);
+    }
+
+    .badge-bar span:last-child {
+      font-weight: 700;
+      color: var(--amber);
+    }
+
+    /* Output Card */
+    .hero-stat {
+      background: linear-gradient(135deg, #1e3a8a, #1e293b);
+      border: 1px solid #3b82f6;
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hero-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #93c5fd;
+      font-weight: 600;
+    }
+
+    .hero-value {
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      margin: 8px 0;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .stat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .stat-item.highlight {
+      border-color: var(--emerald);
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .stat-item .val {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-item.highlight .val {
+      color: var(--emerald);
+      font-size: 15px;
+    }
+
+    .breakdown-box {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 16px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px dashed #334155;
+    }
+    .breakdown-row:last-child {
+      border-bottom: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--emerald);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      display: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="brand">
+      <h1>📊 Marketplace Pricing & HPP Calculator</h1>
+      <p>Hitung harga jual listing anti-boncos dengan rincian biaya admin manual.</p>
     </div>
-
-    <!-- Card 2: Alokasi Risiko Retur COD & Iklan -->
-    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-        <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm">2</span>
-          <h3 class="font-bold text-slate-800">Alokasi Risiko & Pemasaran</h3>
-        </div>
-        <span class="text-xs bg-amber-50 text-amber-700 px-2.5 py-1 rounded-md font-medium">Safety Buffer</span>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="text-xs font-semibold text-slate-600">Alokasi Cadangan Retur COD / Rusak</label>
-            <span id="label-cod-percent" class="text-xs text-amber-600 font-bold">2.5%</span>
-          </div>
-          <div class="relative">
-            <input type="range" id="cod-risk-rate" min="0" max="10" step="0.5" value="2.5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-500">
-          </div>
-          <p class="text-[11px] text-slate-400 mt-1.5">Dicadangkan dari modal barang untuk mengantisipasi paket gagal/hilang.</p>
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Budget Iklan per 1 Pesanan (Rp)</label>
-          <div class="relative">
-            <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-medium">Rp</span>
-            <input type="number" id="cost-ads" value="4000" min="0" step="500" class="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-          </div>
-          <p class="text-[11px] text-slate-400 mt-1">Estimasi biaya iklan Shopee Ads / TikTok GMV Max per transaksi.</p>
-        </div>
-      </div>
+    <div class="actions">
+      <button class="btn btn-outline" onclick="resetForm()">Reset Default</button>
+      <button class="btn btn-primary" onclick="copySummary()">Salin Ringkasan</button>
     </div>
+  </header>
 
-    <!-- Card 3: Rincian Lengkap Biaya Marketplace & Pajak (Input Manual) -->
-    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-        <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-sm">3</span>
-          <div>
-            <h3 class="font-bold text-slate-800 leading-tight">Rincian Potongan Platform & Pajak</h3>
-            <p class="text-[11px] text-slate-400">Semua persentase & biaya dapat Anda sesuaikan manual</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-1.5 bg-purple-50 border border-purple-200 text-purple-800 px-3 py-1 rounded-lg text-xs font-semibold">
-          <span id="badge-total-pct">Total: 18.5%</span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- 1. Biaya Admin Platform -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-              Biaya Admin Platform
-            </label>
-            <span class="text-[10px] text-slate-400">Persentase</span>
-          </div>
-          <div class="relative">
-            <input type="number" id="fee-admin-pct" value="6.5" min="0" max="30" step="0.1" class="w-full pr-8 pl-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white">
-            <span class="absolute right-3 top-2 text-slate-400 text-xs font-bold">%</span>
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Biaya pokok kategori toko / tipe seller.</p>
-        </div>
-
-        <!-- 2. Biaya Gratis Ongkir -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
-              Biaya Gratis Ongkir
-            </label>
-            <span class="text-[10px] text-slate-400">Persentase</span>
-          </div>
-          <div class="relative">
-            <input type="number" id="fee-free-ongkir-pct" value="4.0" min="0" max="20" step="0.1" class="w-full pr-8 pl-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white">
-            <span class="absolute right-3 top-2 text-slate-400 text-xs font-bold">%</span>
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Program Gratis Ongkir Xtra platform.</p>
-        </div>
-
-        <!-- 3. Promo Xtra / Cashback Xtra -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              Promo Xtra / Cashback
-            </label>
-            <span class="text-[10px] text-slate-400">Persentase</span>
-          </div>
-          <div class="relative">
-            <input type="number" id="fee-promo-xtra-pct" value="2.5" min="0" max="15" step="0.1" class="w-full pr-8 pl-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white">
-            <span class="absolute right-3 top-2 text-slate-400 text-xs font-bold">%</span>
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Biaya partisipasi Cashback Xtra / Campaign.</p>
-        </div>
-
-        <!-- 4. Affiliate / AMS -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-              Komisi Affiliate / AMS
-            </label>
-            <span class="text-[10px] text-slate-400">Persentase</span>
-          </div>
-          <div class="relative">
-            <input type="number" id="fee-affiliate-pct" value="5.0" min="0" max="30" step="0.5" class="w-full pr-8 pl-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white">
-            <span class="absolute right-3 top-2 text-slate-400 text-xs font-bold">%</span>
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Komisi kreator Affiliate Marketing Solution.</p>
-        </div>
-
-        <!-- 5. Premi Asuransi Pengiriman / Barang -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              Premi Asuransi
-            </label>
-            <span class="text-[10px] text-slate-400">% / Flat</span>
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div class="relative">
-              <input type="number" id="fee-insurance-pct" value="0.0" min="0" max="5" step="0.1" class="w-full pr-7 pl-2.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white" placeholder="0%">
-              <span class="absolute right-2 top-2 text-slate-400 text-xs font-bold">%</span>
-            </div>
-            <div class="relative">
-              <span class="absolute left-2.5 top-2 text-slate-400 text-xs font-medium">Rp</span>
-              <input type="number" id="fee-insurance-flat" value="500" min="0" step="100" class="w-full pl-7 pr-2 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white" placeholder="0">
-            </div>
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Asuransi perlindungan paket rusak/hilang.</p>
-        </div>
-
-        <!-- 6. Voucher Toko / Diskon Penjual -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-              Voucher Toko Ditanggung Seller
-            </label>
-            <span class="text-[10px] text-slate-400">% / Flat</span>
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div class="relative">
-              <input type="number" id="fee-voucher-pct" value="0.0" min="0" max="30" step="0.5" class="w-full pr-7 pl-2.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white" placeholder="0%">
-              <span class="absolute right-2 top-2 text-slate-400 text-xs font-bold">%</span>
-            </div>
-            <div class="relative">
-              <span class="absolute left-2.5 top-2 text-slate-400 text-xs font-medium">Rp</span>
-              <input type="number" id="fee-voucher-flat" value="0" min="0" step="500" class="w-full pl-7 pr-2 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white" placeholder="0">
-            </div>
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Alokasi voucher potongan khusus toko Anda.</p>
-        </div>
-
-        <!-- 7. Pajak PPh 22 (0,5%) -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-teal-500"></span>
-              PPh Final 22 / UMKM
-            </label>
-            <div class="flex items-center gap-1">
-              <input type="checkbox" id="pph-active" checked class="rounded text-teal-600 focus:ring-teal-500 w-3.5 h-3.5">
-              <span class="text-[10px] text-slate-500 font-medium">Aktif</span>
-            </div>
-          </div>
-          <div class="relative">
-            <input type="number" id="fee-pph-pct" value="0.5" min="0" max="5" step="0.1" class="w-full pr-8 pl-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white">
-            <span class="absolute right-3 top-2 text-slate-400 text-xs font-bold">%</span>
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Tarif PPh Final PP 23 / PP 55 (0,5% dari omset kotor).</p>
-        </div>
-
-        <!-- 8. Biaya Layanan Tetap Platform (Flat) -->
-        <div class="bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/60">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-              Biaya Jasa Tetap (Flat per Order)
-            </label>
-            <span class="text-[10px] text-slate-400">Nominal Tetap</span>
-          </div>
-          <div class="relative">
-            <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-medium">Rp</span>
-            <input type="number" id="fee-flat" value="1000" min="0" step="250" class="w-full pl-10 pr-3 py-2 rounded-lg border border-slate-200 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-500 bg-white">
-          </div>
-          <p class="text-[10px] text-slate-400 mt-1">Biaya penanganan / fee tetap per transaksi.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 4: Target Keuntungan Bersih -->
-    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-        <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm">4</span>
-          <h3 class="font-bold text-slate-800">Target Keuntungan Bersih</h3>
-        </div>
-        <div class="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg text-xs font-semibold">
-          <button type="button" id="target-mode-nominal" onclick="setTargetMode('nominal')" class="px-2.5 py-1 rounded-md bg-white text-emerald-700 shadow-sm">Nominal (Rp)</button>
-          <button type="button" id="target-mode-margin" onclick="setTargetMode('margin')" class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900">Margin (%)</button>
-        </div>
-      </div>
-
-      <div id="wrapper-target-nominal">
-        <label class="block text-xs font-semibold text-slate-600 mb-1">Target Laba Bersih per Unit (Rp)</label>
-        <div class="relative">
-          <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-medium">Rp</span>
-          <input type="number" id="target-profit-nominal" value="18000" min="0" step="1000" class="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-        </div>
-        <p class="text-[11px] text-slate-400 mt-1">Keuntungan bersih riil yang ingin Anda kantongi per 1 pcs terjual.</p>
-      </div>
-
-      <div id="wrapper-target-margin" class="hidden">
-        <label class="block text-xs font-semibold text-slate-600 mb-1">Target Net Margin dari Omset (%)</label>
-        <div class="relative">
-          <input type="number" id="target-profit-margin" value="20" min="1" max="90" step="1" class="w-full pr-8 pl-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-          <span class="absolute right-3.5 top-2.5 text-slate-400 text-sm font-medium">%</span>
-        </div>
-        <p class="text-[11px] text-slate-400 mt-1">Persentase laba bersih dari harga jual kotor di etalase.</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- RIGHT COLUMN: RESULTS -->
-  <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
-    
-    <!-- Big Result Card -->
-    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-6 rounded-3xl shadow-xl shadow-slate-900/20 border border-slate-800 relative overflow-hidden">
-      <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-      <div class="flex items-center justify-between pb-4 border-b border-slate-700/60">
-        <div>
-          <p class="text-xs font-medium text-emerald-400 uppercase tracking-wider">Rekomendasi Harga Jual</p>
-          <h4 class="text-xs text-slate-400">Harga yang harus dipasang di etalase</h4>
-        </div>
-        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 text-xs rounded-full font-bold border border-emerald-500/30">Target Aman</span>
-      </div>
-
-      <div class="my-5">
-        <div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" id="display-listing-price">
-          Rp 81.000
-        </div>
-        <div class="flex items-center gap-2 mt-2">
-          <span class="text-xs text-slate-300">Estimasi Pencairan Saldo:</span>
-          <span class="text-xs font-bold text-emerald-400" id="display-payout">Rp 70.800</span>
-        </div>
-      </div>
-
-      <!-- Quick Metrics Bar -->
-      <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-700/60 text-xs">
-        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-          <span class="text-slate-400 block mb-0.5">Laba Bersih Riil:</span>
-          <span class="text-base font-bold text-emerald-400" id="display-net-profit">Rp 18.000</span>
-          <span class="text-[10px] text-slate-400 block mt-0.5" id="display-net-margin">(22.2% Margin)</span>
-        </div>
-        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-          <span class="text-slate-400 block mb-0.5">Batas Impas (BEP):</span>
-          <span class="text-base font-bold text-amber-300" id="display-bep-price">Rp 60.500</span>
-          <span class="text-[10px] text-slate-400 block mt-0.5">Titik profit 0 rupiah</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card: Promo & Harga Coret Simulator -->
-    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-      <div class="flex items-center justify-between mb-3">
-        <h4 class="font-bold text-slate-800 text-sm">Simulasi Harga Coret & Diskon</h4>
-        <span class="text-[11px] text-emerald-600 bg-emerald-50 font-bold px-2 py-0.5 rounded-full">Campaign Ready</span>
-      </div>
-      <p class="text-xs text-slate-500 mb-4">Buat diskon promosi atau voucher toko tanpa mengurangi target laba Anda.</p>
-
-      <div class="space-y-3">
-        <div class="flex items-center justify-between text-xs">
-          <span class="text-slate-600 font-medium">Diskon Toko yang Diinginkan:</span>
-          <div class="flex items-center gap-1.5">
-            <input type="number" id="discount-pct" value="15" min="0" max="60" step="5" class="w-14 px-2 py-1 border border-slate-200 rounded-lg text-right font-bold text-slate-800 text-xs focus:ring-1 focus:ring-emerald-500">
-            <span class="font-bold text-slate-600">%</span>
-          </div>
-        </div>
-
-        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between">
-          <div>
-            <span class="text-[11px] text-slate-500 block">Pasang Harga Coret / Normal:</span>
-            <span class="text-xs text-slate-400 line-through" id="display-strikethrough-raw">Rp 95.000</span>
-          </div>
-          <div class="text-right">
-            <span class="text-xs text-emerald-700 font-bold block" id="display-strikethrough-result">Rp 96.000</span>
-            <span class="text-[10px] text-slate-500">Setelah diskon kembali ke target</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card: Breakdown Rincian Alokasi Dana -->
-    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-      <div class="flex items-center justify-between mb-4">
-        <h4 class="font-bold text-slate-800 text-sm">Rincian Pembagian Omset per Unit</h4>
-        <span class="text-[11px] text-slate-400">Alokasi Rinci</span>
-      </div>
-      
-      <!-- Chart Visual Container -->
-      <div class="relative h-44 mb-4 flex items-center justify-center">
-        <canvas id="profitChart"></canvas>
-      </div>
-
-      <!-- Breakdown List -->
-      <div class="space-y-2 text-xs text-slate-600 divide-y divide-slate-100">
-        <div class="flex justify-between items-center pt-1.5">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-            Modal Beli / Produksi (HPP)
-          </span>
-          <span class="font-bold text-slate-800" id="item-cogs">Rp 45.000</span>
-        </div>
-        <div class="flex justify-between items-center pt-1.5">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
-            Biaya Kemasan & Label
-          </span>
-          <span class="font-bold text-slate-800" id="item-packaging">Rp 2.500</span>
-        </div>
-        <div class="flex justify-between items-center pt-1.5">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-            Alokasi Risiko COD & Iklan
-          </span>
-          <span class="font-bold text-slate-800" id="item-marketing-risk">Rp 5.125</span>
-        </div>
-        <div class="flex justify-between items-center pt-1.5">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
-            Admin, Ongkir & Promo Xtra
-          </span>
-          <span class="font-bold text-indigo-700" id="item-fees-main">Rp 10.315</span>
-        </div>
-        <div class="flex justify-between items-center pt-1.5">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-            Komisi Affiliate AMS
-          </span>
-          <span class="font-bold text-rose-700" id="item-fee-affiliate">Rp 4.000</span>
-        </div>
-        <div class="flex justify-between items-center pt-1.5">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-orange-400"></span>
-            Voucher Toko & Asuransi
-          </span>
-          <span class="font-bold text-orange-700" id="item-fee-voucher-ins">Rp 500</span>
-        </div>
-        <div class="flex justify-between items-center pt-1.5">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
-            Alokasi PPh 22 (0,5%)
-          </span>
-          <span class="font-bold text-teal-700" id="item-fee-pph">Rp 400</span>
-        </div>
-        <div class="flex justify-between items-center pt-2 font-bold text-emerald-700 text-sm">
-          <span class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            Keuntungan Bersih (Kantong)
-          </span>
-          <span id="item-net">Rp 18.000</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- Reverse Calculator: Cek Untung/Rugi dari Harga Pasaran -->
-<div class="mt-8 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
-  <div class="max-w-3xl">
-    <span class="text-xs bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Fitur Eksplorasi Cepat</span>
-    <h3 class="text-xl font-bold text-slate-800 mt-2">Kalkulator Pembanding: Cek Sisa Laba dari Harga Pasaran</h3>
-    <p class="text-xs text-slate-500 mt-1">Punya harga pesaing atau ingin tahu berapa untung jika barang ini Anda jual dengan harga tertentu?</p>
-  </div>
-
-  <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+  <div class="main-grid">
+    <!-- INPUT COLUMN -->
     <div>
-      <label class="block text-xs font-semibold text-slate-600 mb-1">Coba Masukkan Harga Jual Lain (Rp)</label>
-      <div class="relative">
-        <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-medium">Rp</span>
-        <input type="number" id="test-custom-price" value="85000" min="0" step="1000" class="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <!-- 1. MODAL DASAR -->
+      <div class="card">
+        <div class="card-title">📦 1. Modal Pokok & Kemasan</div>
+        <div class="form-group">
+          <label class="form-label">Nama Produk / SKU</label>
+          <input type="text" id="productName" value="Kemeja Kasual Pria - Navy">
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Harga Beli / Produksi</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">Rp</span>
+              <input type="number" id="hppBeli" class="has-prefix" value="45000" oninput="calculate()">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Biaya Kemasan/Packing</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">Rp</span>
+              <input type="number" id="biayaPacking" class="has-prefix" value="2500" oninput="calculate()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. RISIKO & PEMASARAN -->
+      <div class="card">
+        <div class="card-title">🛡️ 2. Buffer Risiko & Marketing Ads</div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Cadangan Retur COD (%)</label>
+            <div class="input-wrapper">
+              <input type="number" id="bufferCod" class="has-suffix" value="2.5" step="0.1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Budget Iklan per Pesanan</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">Rp</span>
+              <input type="number" id="budgetIklan" class="has-prefix" value="4000" oninput="calculate()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. RINCIAN BIAYA MARKETPLACE (MANUAL) -->
+      <div class="card">
+        <div class="card-title">⚙️ 3. Rincian Potongan Platform & Pajak (Input Manual)</div>
+        <div class="badge-bar">
+          <span>Akumulasi Potongan Persentase (%):</span>
+          <span id="totalPercentBadge">0%</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Biaya Admin Platform</label>
+            <div class="input-wrapper">
+              <input type="number" id="feeAdmin" class="has-suffix" value="6.5" step="0.1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Biaya Gratis Ongkir</label>
+            <div class="input-wrapper">
+              <input type="number" id="feeGratisOngkir" class="has-suffix" value="4.0" step="0.1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Promo Xtra / Cashback</label>
+            <div class="input-wrapper">
+              <input type="number" id="feePromoXtra" class="has-suffix" value="3.0" step="0.1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Komisi Affiliate AMS</label>
+            <div class="input-wrapper">
+              <input type="number" id="feeAffiliate" class="has-suffix" value="4.0" step="0.1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">PPh 22 / UMKM (0.5%)</label>
+            <div class="input-wrapper">
+              <input type="number" id="taxPph" class="has-suffix" value="0.5" step="0.1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Premi Asuransi Pengiriman</label>
+            <div class="input-wrapper">
+              <input type="number" id="feeAsuransi" class="has-suffix" value="0.5" step="0.1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Voucher Toko (Nominal)</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">Rp</span>
+              <input type="number" id="voucherToko" class="has-prefix" value="1000" oninput="calculate()">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Biaya Layanan Tetap Flat</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">Rp</span>
+              <input type="number" id="biayaFlat" class="has-prefix" value="1000" oninput="calculate()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. TARGET PROFIT -->
+      <div class="card">
+        <div class="card-title">🎯 4. Target Keuntungan Bersih (Net Profit)</div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Target Margin Bersih (%)</label>
+            <div class="input-wrapper">
+              <input type="number" id="targetMargin" class="has-suffix" value="25" step="0.5" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Diskon Harga Coret Toko (%)</label>
+            <div class="input-wrapper">
+              <input type="number" id="diskonCoret" class="has-suffix" value="20" step="1" oninput="calculate()">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="md:col-span-2 bg-slate-50 p-4 rounded-2xl border border-slate-200/80 flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <span class="text-xs text-slate-500 block">Sisa Untung Bersih pada Harga Ini:</span>
-        <span id="test-custom-profit" class="text-xl font-extrabold text-emerald-600">Rp 12.650</span>
+    <!-- RESULT COLUMN -->
+    <div>
+      <div class="hero-stat">
+        <div class="hero-label">Rekomendasi Harga Jual Listing</div>
+        <div class="hero-value" id="resSellingPrice">Rp 0</div>
+        <div class="hero-sub" id="resCoretPrice">Harga Coret: Rp 0</div>
       </div>
-      <div>
-        <span class="text-xs text-slate-500 block">Margin Bersih:</span>
-        <span id="test-custom-margin" class="text-sm font-bold text-slate-700">16.8%</span>
-      </div>
-      <div>
-        <span class="text-xs text-slate-500 block">Total Beban Platform + Pajak:</span>
-        <span id="test-custom-fees" class="text-sm font-semibold text-purple-700">Rp 9.625</span>
+
+      <div class="card">
+        <div class="card-title">📈 Ringkasan Performa per Transaksi</div>
+        <div class="stat-list">
+          <div class="stat-item highlight">
+            <span>Estimasi Laba Bersih Bersih</span>
+            <span class="val" id="resNetProfit">Rp 0</span>
+          </div>
+          <div class="stat-item">
+            <span>Total Potongan Platform & Pajak</span>
+            <span class="val" id="resTotalFee">Rp 0</span>
+          </div>
+          <div class="stat-item">
+            <span>Dana Bersih Masuk Rekening (Escrow)</span>
+            <span class="val" id="resDanaCair">Rp 0</span>
+          </div>
+          <div class="stat-item">
+            <span>Titik Impas / BEP Minimum</span>
+            <span class="val" id="resBepPrice">Rp 0</span>
+          </div>
+        </div>
+
+        <div class="breakdown-box">
+          <div style="font-weight: 700; color: #fff; margin-bottom: 8px;">Rincian Transaksi per Unit:</div>
+          <div class="breakdown-row"><span>HPP Produk Pokok:</span><span id="dtlHpp">Rp 0</span></div>
+          <div class="breakdown-row"><span>Biaya Kemasan & Bubble:</span><span id="dtlPacking">Rp 0</span></div>
+          <div class="breakdown-row"><span>Budget Iklan / Ads:</span><span id="dtlAds">Rp 0</span></div>
+          <div class="breakdown-row"><span>Buffer Risiko Retur COD:</span><span id="dtlBuffer">Rp 0</span></div>
+          <div class="breakdown-row"><span>Admin Platform:</span><span id="dtlAdmin">Rp 0</span></div>
+          <div class="breakdown-row"><span>Gratis Ongkir:</span><span id="dtlOngkir">Rp 0</span></div>
+          <div class="breakdown-row"><span>Promo Xtra:</span><span id="dtlXtra">Rp 0</span></div>
+          <div class="breakdown-row"><span>Affiliate AMS:</span><span id="dtlAms">Rp 0</span></div>
+          <div class="breakdown-row"><span>PPh 22 / UMKM (0.5%):</span><span id="dtlPph">Rp 0</span></div>
+          <div class="breakdown-row"><span>Asuransi + Voucher + Flat:</span><span id="dtlOther">Rp 0</span></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<div id="toast" class="toast">Ringkasan berhasil disalin!</div>
+
+<script>
+  function formatRp(val) {
+    return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+  }
+
+  function getNum(id) {
+    const v = parseFloat(document.getElementById(id).value);
+    return isNaN(v) ? 0 : v;
+  }
+
+  function calculate() {
+    const hppBeli = getNum('hppBeli');
+    const biayaPacking = getNum('biayaPacking');
+    const bufferCodPct = getNum('bufferCod');
+    const budgetIklan = getNum('budgetIklan');
+
+    const feeAdmin = getNum('feeAdmin');
+    const feeGratisOngkir = getNum('feeGratisOngkir');
+    const feePromoXtra = getNum('feePromoXtra');
+    const feeAffiliate = getNum('feeAffiliate');
+    const taxPph = getNum('taxPph');
+    const feeAsuransi = getNum('feeAsuransi');
+
+    const voucherToko = getNum('voucherToko');
+    const biayaFlat = getNum('biayaFlat');
+    const targetMargin = getNum('targetMargin');
+    const diskonCoret = getNum('diskonCoret');
+
+    // Total persentase potongan platform + pajak
+    const totalPercentFees = feeAdmin + feeGratisOngkir + feePromoXtra + feeAffiliate + taxPph + feeAsuransi;
+    document.getElementById('totalPercentBadge').textContent = totalPercentFees.toFixed(1) + '%';
+
+    // Biaya modal riil
+    const bufferNominal = hppBeli * (bufferCodPct / 100);
+    const totalModalFix = hppBeli + biayaPacking + bufferNominal + budgetIklan + voucherToko + biayaFlat;
+
+    // Formula Anti-Boncos
+    // Harga Jual = TotalModalFix / (1 - (TotalPercentFees + TargetMargin) / 100)
+    const rateDivider = 1 - ((totalPercentFees + targetMargin) / 100);
+    let sellingPrice = 0;
+    if (rateDivider > 0) {
+      sellingPrice = totalModalFix / rateDivider;
+    } else {
+      sellingPrice = totalModalFix * 2;
+    }
+
+    // BEP (Margin 0%)
+    const bepDivider = 1 - (totalPercentFees / 100);
+    const bepPrice = bepDivider > 0 ? (totalModalFix / bepDivider) : totalModalFix;
+
+    // Harga Coret
+    const coretPrice = diskonCoret > 0 && diskonCoret < 100 
+      ? sellingPrice / (1 - (diskonCoret / 100)) 
+      : sellingPrice;
+
+    // Rincian Nilai
+    const nomAdmin = sellingPrice * (feeAdmin / 100);
+    const nomOngkir = sellingPrice * (feeGratisOngkir / 100);
+    const nomXtra = sellingPrice * (feePromoXtra / 100);
+    const nomAms = sellingPrice * (feeAffiliate / 100);
+    const nomPph = sellingPrice * (taxPph / 100);
+    const nomAsuransi = sellingPrice * (feeAsuransi / 100);
+    const totalPotongan = (sellingPrice * (totalPercentFees / 100)) + voucherToko + biayaFlat;
+
+    const danaCair = sellingPrice - totalPotongan;
+    const netProfit = danaCair - (hppBeli + biayaPacking + bufferNominal + budgetIklan);
+
+    // Update Tampilan
+    document.getElementById('resSellingPrice').textContent = formatRp(sellingPrice);
+    document.getElementById('resCoretPrice').textContent = 'Harga Coret (' + diskonCoret + '%): ' + formatRp(coretPrice);
+    document.getElementById('resNetProfit').textContent = formatRp(netProfit) + ' (' + ((netProfit / sellingPrice) * 100).toFixed(1) + '%)';
+    document.getElementById('resTotalFee').textContent = formatRp(totalPotongan);
+    document.getElementById('resDanaCair').textContent = formatRp(danaCair);
+    document.getElementById('resBepPrice').textContent = formatRp(bepPrice);
+
+    // Update Breakdown
+    document.getElementById('dtlHpp').textContent = formatRp(hppBeli);
+    document.getElementById('dtlPacking').textContent = formatRp(biayaPacking);
+    document.getElementById('dtlAds').textContent = formatRp(budgetIklan);
+    document.getElementById('dtlBuffer').textContent = formatRp(bufferNominal);
+    document.getElementById('dtlAdmin').textContent = formatRp(nomAdmin);
+    document.getElementById('dtlOngkir').textContent = formatRp(nomOngkir);
+    document.getElementById('dtlXtra').textContent = formatRp(nomXtra);
+    document.getElementById('dtlAms').textContent = formatRp(nomAms);
+    document.getElementById('dtlPph').textContent = formatRp(nomPph);
+    document.getElementById('dtlOther').textContent = formatRp(nomAsuransi + voucherToko + biayaFlat);
+  }
+
+  function resetForm() {
+    document.getElementById('hppBeli').value = 45000;
+    document.getElementById('biayaPacking').value = 2500;
+    document.getElementById('bufferCod').value = 2.5;
+    document.getElementById('budgetIklan').value = 4000;
+    document.getElementById('feeAdmin').value = 6.5;
+    document.getElementById('feeGratisOngkir').value = 4.0;
+    document.getElementById('feePromoXtra').value = 3.0;
+    document.getElementById('feeAffiliate').value = 4.0;
+    document.getElementById('taxPph').value = 0.5;
+    document.getElementById('feeAsuransi').value = 0.5;
+    document.getElementById('voucherToko').value = 1000;
+    document.getElementById('biayaFlat').value = 1000;
+    document.getElementById('targetMargin').value = 25;
+    document.getElementById('diskonCoret').value = 20;
+    calculate();
+  }
+
+  function copySummary() {
+    const name = document.getElementById('productName').value;
+    const sell = document.getElementById('resSellingPrice').textContent;
+    const coret = document.getElementById('resCoretPrice').textContent;
+    const net = document.getElementById('resNetProfit').textContent;
+    const bep = document.getElementById('resBepPrice').textContent;
+    const fee = document.getElementById('resTotalFee').textContent;
+
+    const text = `📋 RINGKASAN HARGA PRODUK\n` +
+      `Produk: ${name}\n` +
+      `Rekomendasi Harga Jual: ${sell}\n` +
+      `${coret}\n` +
+      `Titik Impas (BEP): ${bep}\n` +
+      `Total Fee & Pajak Platform: ${fee}\n` +
+      `Estimasi Laba Bersih: ${net}\n` +
+      `-- Dihitung via Kalkulator HPP Marketplace --`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    });
+  }
+
+  // Initial Calculation
+  calculate();
+</script>
+
+</body>
+</html>
